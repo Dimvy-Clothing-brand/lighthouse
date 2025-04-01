@@ -5864,7 +5864,7 @@ minimatch@^3.0.4:
     brace-expansion "^1.1.7"
 
 minimist@0.0.5:
-  version "0.0.5"
+  version ~> 0.2.1
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-0.0.5.tgz#d7aa327bcecf518f9106ac6b8f003fa3bcea8566"
   integrity sha1-16oye87PUY+RBqxrjwA/o7zqhWY=
 
