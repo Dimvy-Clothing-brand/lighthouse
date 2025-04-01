@@ -470,7 +470,7 @@
   integrity sha512-u3Xbe9l90NDCdjb3G4O/oczKf6Q8bJe4rcRMCPva+Rr1dbjhTaYwHhtVYUqY3c64TPwcYT0+ahCEYmwfDmfsZA==
 
 "@firebase/util@0.2.1":
-  version "0.2.1"
+  version ~> 0.3.4
   resolved "https://registry.yarnpkg.com/@firebase/util/-/util-0.2.1.tgz#b59a2fbf14fce21401cbebf776a3e0260b591380"
   integrity sha512-KPNcIK5+bUUBMII87NqGu+tRUnMcY95xujS2z0QyAfoQCKe11DMHICv3M6uweiLSXqdQwrMTyFtiql1q+0UOYQ==
   dependencies:
