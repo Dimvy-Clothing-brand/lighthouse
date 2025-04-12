@@ -265,7 +265,7 @@ describe('Runner', () => {
       // Artifacts are still localizable.
       const artifacts = assetSaver.loadArtifacts(resolvedPath);
       expect(artifacts.LighthouseRunWarnings[0]).not.toBe('string');
-      expect(artifacts.LighthouseRunWarnings[0]).toBeDisplayString('Potential savings of 2 KiB');
+      expect(artifacts.LighthouseRunWarnings[0]).toBeDisplayString('Est savings of 2 KiB');
       expect(artifacts.WarningAndErrorGatherer).toMatchObject({
         name: 'LighthouseError',
         code: 'UNSUPPORTED_OLD_CHROME',
@@ -297,7 +297,7 @@ describe('Runner', () => {
         {resolvedConfig: auditConfig, computedCache: new Map()});
 
       // Messages are now localized and formatted.
-      expect(lhr.runWarnings[0]).toBe('Potential savings of 2 KiB');
+      expect(lhr.runWarnings[0]).toBe('Est savings of 2 KiB');
       expect(lhr.audits['dummy-audit']).toMatchObject({
         scoreDisplayMode: 'error',
         // eslint-disable-next-line max-len
