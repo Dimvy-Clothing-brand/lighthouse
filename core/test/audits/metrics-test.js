@@ -43,6 +43,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: pwaDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const context = {
@@ -64,6 +65,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: pwaDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const context = {
@@ -85,6 +87,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: lcpDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const context = {
@@ -106,6 +109,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: lcpAllFramesDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const context = {
@@ -127,6 +131,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: lcpImageDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const context = {
@@ -138,7 +143,9 @@ describe('Performance: metrics', () => {
   });
 
   it('leaves CLS undefined in an old trace without weighted scores', async () => {
+    const URL = getURLArtifactFromDevtoolsLog(lcpAllFramesDevtoolsLog);
     const artifacts = {
+      URL,
       GatherContext: {gatherMode: 'navigation'},
       traces: {
         [MetricsAudit.DEFAULT_PASS]: lcpAllFramesTrace,
@@ -146,6 +153,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: lcpAllFramesDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const context = {
@@ -170,6 +178,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: clsAllFramesDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const context = {
@@ -195,6 +204,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: pwaDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const mockTTIFn = jestMock.spyOn(Interactive, 'request');
@@ -218,6 +228,7 @@ describe('Performance: metrics', () => {
       devtoolsLogs: {
         [MetricsAudit.DEFAULT_PASS]: jumpyClsDevtoolsLog,
       },
+      SourceMaps: [],
     };
 
     const context = {

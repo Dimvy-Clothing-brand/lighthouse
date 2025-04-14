@@ -31,7 +31,7 @@ class ScriptTreemapDataAudit extends Audit {
       title: 'Script Treemap Data',
       description: 'Used for treemap app',
       requiredArtifacts:
-        ['traces', 'devtoolsLogs', 'SourceMaps', 'Scripts', 'JsUsage', 'URL'],
+        ['traces', 'devtoolsLogs', 'SourceMaps', 'Scripts', 'JsUsage', 'URL', 'SourceMaps'],
     };
   }
 
@@ -114,8 +114,12 @@ class ScriptTreemapDataAudit extends Audit {
      */
     function collapseAll(node) {
       while (node.children && node.children.length === 1) {
-        node.name += '/' + node.children[0].name;
-        node.children = node.children[0].children;
+        const child = node.children[0];
+        node.name += '/' + child.name;
+        if (child.duplicatedNormalizedModuleName) {
+          node.duplicatedNormalizedModuleName = child.duplicatedNormalizedModuleName;
+        }
+        node.children = child.children;
       }
 
       if (node.children) {
@@ -174,7 +178,7 @@ class ScriptTreemapDataAudit extends Audit {
       if (script.scriptLanguage !== 'JavaScript') continue;
 
       const name = script.url;
-      const bundle = bundles.find(bundle => script.scriptId === bundle.script.scriptId);
+      const bundle = bundles.find(bundle => script.scriptId === bundle.script.scriptId) ?? null;
       const scriptCoverage = /** @type {LH.Artifacts['JsUsage'][string] | undefined} */
         (artifacts.JsUsage[script.scriptId]);
       const unusedJavascriptSummary = scriptCoverage ?

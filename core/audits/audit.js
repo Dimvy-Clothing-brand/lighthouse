@@ -141,6 +141,17 @@ class Audit {
   }
 
   /**
+   * @param {LH.Audit.Details.Checklist['items']} items
+   * @return {LH.Audit.Details.Checklist}
+   */
+  static makeChecklistDetails(items) {
+    return {
+      type: 'checklist',
+      items,
+    };
+  }
+
+  /**
    * @param {LH.Audit.Details.Table['headings']} headings
    * @param {LH.Audit.Details.Table['items']} results
    * @param {TableOptions=} options
@@ -467,6 +478,7 @@ class Audit {
 
       details: product.details,
       guidanceLevel: audit.meta.guidanceLevel,
+      replacesAudits: audit.meta.replacesAudits,
     };
   }
 
@@ -479,7 +491,9 @@ class Audit {
     const trace = artifacts.traces[Audit.DEFAULT_PASS];
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
     const gatherContext = artifacts.GatherContext;
-    return {trace, devtoolsLog, gatherContext, settings: context.settings, URL: artifacts.URL};
+    const {URL, SourceMaps} = artifacts;
+    // eslint-disable-next-line max-len
+    return {trace, devtoolsLog, gatherContext, settings: context.settings, URL, SourceMaps, simulator: null};
   }
 }
 
