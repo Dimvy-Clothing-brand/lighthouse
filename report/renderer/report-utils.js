@@ -67,13 +67,15 @@ class ReportUtils {
 
         // attach the stackpacks to the auditRef object
         if (clone.stackPacks) {
+          const ids = [auditRef.id, ...auditRef.result.replacesAudits ?? []];
           clone.stackPacks.forEach(pack => {
-            if (pack.descriptions[auditRef.id]) {
+            const id = ids.find(id => pack.descriptions[id]);
+            if (id && pack.descriptions[id]) {
               auditRef.stackPacks = auditRef.stackPacks || [];
               auditRef.stackPacks.push({
                 title: pack.title,
                 iconDataURL: pack.iconDataURL,
-                description: pack.descriptions[auditRef.id],
+                description: pack.descriptions[id],
               });
             }
           });
@@ -418,6 +420,8 @@ const UIStrings = {
   dropdownSaveGist: 'Save as Gist',
   /** Option in a dropdown menu that toggles the themeing of the report between Light(default) and Dark themes. */
   dropdownDarkTheme: 'Toggle Dark Theme',
+  /** Option in a dropdown menu that toggles the type of performance insights displayed. */
+  dropdownInsightsToggle: 'Toggle experimental insights',
   /** Option in a dropdown menu that opens the trace of the page without throttling. "Unthrottled" can be replaced with "Original". */
   dropdownViewUnthrottledTrace: 'View Unthrottled Trace',
 

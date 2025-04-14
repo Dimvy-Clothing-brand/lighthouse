@@ -67,10 +67,13 @@ describe('Max Potential FID', () => {
       trace.traceEvents.push(...createLoafEvents(navStart, task));
     }
 
+    const devtoolsLog = networkRecordsToDevtoolsLog([{url: frameUrl}]);
     const artifacts = {
+      URL: {finalDisplayedUrl: frameUrl},
       traces: {defaultPass: trace},
-      devtoolsLogs: {defaultPass: networkRecordsToDevtoolsLog([{url: frameUrl}])},
+      devtoolsLogs: {defaultPass: devtoolsLog},
       GatherContext: {gatherMode: 'navigation'},
+      SourceMaps: [],
     };
     const context = {
       settings: {throttlingMethod: 'devtools'},
@@ -128,10 +131,13 @@ describe('Max Potential FID', () => {
       trace.traceEvents.push(...createLoafEvents(navStart, task));
     }
 
+    const devtoolsLog = networkRecordsToDevtoolsLog([{url: frameUrl}]);
     const artifacts = {
+      URL: {finalDisplayedUrl: frameUrl},
       traces: {defaultPass: trace},
-      devtoolsLogs: {defaultPass: networkRecordsToDevtoolsLog([{url: frameUrl}])},
+      devtoolsLogs: {defaultPass: devtoolsLog},
       GatherContext: {gatherMode: 'navigation'},
+      SourceMaps: [],
     };
     const context = {
       settings: {throttlingMethod: 'devtools'},

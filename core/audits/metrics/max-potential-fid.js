@@ -43,7 +43,7 @@ class MaxPotentialFID extends Audit {
       description: str_(UIStrings.description),
       scoreDisplayMode: Audit.SCORING_MODES.NUMERIC,
       supportedModes: ['navigation'],
-      requiredArtifacts: ['traces', 'devtoolsLogs', 'GatherContext', 'URL'],
+      requiredArtifacts: ['traces', 'devtoolsLogs', 'GatherContext', 'URL', 'SourceMaps'],
     };
   }
 
@@ -120,8 +120,11 @@ class MaxPotentialFID extends Audit {
     const trace = artifacts.traces[Audit.DEFAULT_PASS];
     const devtoolsLog = artifacts.devtoolsLogs[Audit.DEFAULT_PASS];
     const gatherContext = artifacts.GatherContext;
-    const metricComputationData = {trace, devtoolsLog, gatherContext,
-      settings: context.settings, URL: artifacts.URL};
+    const metricComputationData = {
+      trace, devtoolsLog, gatherContext,
+      settings: context.settings, URL: artifacts.URL,
+      SourceMaps: artifacts.SourceMaps, simulator: null,
+    };
     const metricResult = await ComputedFid.request(metricComputationData, context);
 
     const processedTrace = await ProcessedTrace.request(trace, context);
