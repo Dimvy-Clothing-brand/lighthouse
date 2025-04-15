@@ -1,0 +1,8 @@
+git clone --mirror https://github.com/your-repo.git
+cd your-repo.git
+bfg --delete-files YOUR-FILE-WITH-SENSITIVE-DATA
+bfg --replace-text passwords.txt
+
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+git push --force
+fix(security): remove sensitive data and replace passwords
