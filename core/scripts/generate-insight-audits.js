@@ -30,6 +30,10 @@ function kebabize(str) {
     return 'duplicated-javascript';
   }
 
+  if (str === 'LegacyJavaScript') {
+    return 'legacy-javascript';
+  }
+
   return str.replace(/[A-Z]+(?![a-z])|[A-Z]/g,
     ($, ofs) => (ofs ? '-' : '') + $.toLowerCase());
 }
@@ -67,7 +71,7 @@ class ${insightName}Insight extends Audit {
       failureTitle: str_(UIStrings.title),
       description: str_(UIStrings.description),
       guidanceLevel: 3, // TODO: confirm/change.
-      requiredArtifacts: ['traces', 'TraceElements', 'SourceMaps'],
+      requiredArtifacts: ['Trace', 'TraceElements', 'SourceMaps'],
     };
   }
 
