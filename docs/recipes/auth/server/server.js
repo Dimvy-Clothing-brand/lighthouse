@@ -16,6 +16,7 @@ const morgan = require('morgan');
 const session = require('express-session');
 const http = require('http');
 const path = require('path');
+const csrf = require('lusca').csrf;
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
 const app = express();
@@ -28,6 +29,7 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
 }));
+app.use(csrf());
 
 app.get('/dashboard', (req, res) => {
   if (req.session.user) {
