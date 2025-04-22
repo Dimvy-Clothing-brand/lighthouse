@@ -36,7 +36,7 @@ const expectations = {
       {traceEventType: 'trace-engine'},
       {traceEventType: 'trace-engine'},
       {traceEventType: 'trace-engine'},
-      {traceEventType: 'trace-engine', _minChromiumVersion: '134'},
+      {traceEventType: 'trace-engine'},
       {
         traceEventType: 'largest-contentful-paint',
         node: {
