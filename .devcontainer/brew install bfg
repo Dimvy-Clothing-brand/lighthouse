@@ -1,3 +1,4 @@
+
 git clone --mirror https://github.com/your-repo.git
 cd your-repo.git
 bfg --delete-files YOUR-FILE-WITH-SENSITIVE-DATA
