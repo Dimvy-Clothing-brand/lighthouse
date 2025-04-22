@@ -16,9 +16,19 @@ const morgan = require('morgan');
 const session = require('express-session');
 const http = require('http');
 const path = require('path');
+const RateLimit = require('express-rate-limit');
 const PUBLIC_DIR = path.join(__dirname, 'public');
 
 const app = express();
+
+// set up rate limiter: maximum of 100 requests per 15 minutes
+const limiter = RateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // max 100 requests per windowMs
+});
+
+// apply rate limiter to all requests
+app.use(limiter);
 
 app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
