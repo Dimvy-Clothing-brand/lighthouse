@@ -9,11 +9,14 @@ import {NO_NAVIGATION} from '@paulirish/trace_engine/models/trace/types/TraceEve
 import {ProcessedTrace} from '../../computed/processed-trace.js';
 import {TraceEngineResult} from '../../computed/trace-engine-result.js';
 import {Audit} from '../audit.js';
+import * as i18n from '../../lib/i18n/i18n.js';
+
+const str_ = i18n.createIcuMessageFn(import.meta.url, {});
 
 /**
  * @param {LH.Artifacts} artifacts
  * @param {LH.Audit.Context} context
- * @return {Promise<import('@paulirish/trace_engine/models/trace/insights/types.js').InsightSet|undefined>}
+ * @return {Promise<{insights: import('@paulirish/trace_engine/models/trace/insights/types.js').InsightSet|undefined, parsedTrace: LH.Artifacts.TraceEngineResult['data']}>}
  */
 async function getInsightSet(artifacts, context) {
   const settings = context.settings;
@@ -24,20 +27,27 @@ async function getInsightSet(artifacts, context) {
 
   const navigationId = processedTrace.timeOriginEvt.args.data?.navigationId;
   const key = navigationId ?? NO_NAVIGATION;
+  const insights = traceEngineResult.insights.get(key);
 
-  return traceEngineResult.insights.get(key);
+  return {insights, parsedTrace: traceEngineResult.data};
 }
+
+/**
+ * @typedef CreateDetailsExtras
+ * @property {import('@paulirish/trace_engine/models/trace/insights/types.js').InsightSet} insights
+ * @property {LH.Artifacts.TraceEngineResult['data']} parsedTrace
+ */
 
 /**
  * @param {LH.Artifacts} artifacts
  * @param {LH.Audit.Context} context
  * @param {T} insightName
- * @param {(insight: import('@paulirish/trace_engine/models/trace/insights/types.js').InsightModels[T]) => LH.Audit.Details|undefined} createDetails
+ * @param {(insight: import('@paulirish/trace_engine/models/trace/insights/types.js').InsightModels[T], extras: CreateDetailsExtras) => LH.Audit.Details|undefined} createDetails
  * @template {keyof import('@paulirish/trace_engine/models/trace/insights/types.js').InsightModelsType} T
  * @return {Promise<LH.Audit.Product>}
  */
 async function adaptInsightToAuditProduct(artifacts, context, insightName, createDetails) {
-  const insights = await getInsightSet(artifacts, context);
+  const {insights, parsedTrace} = await getInsightSet(artifacts, context);
   if (!insights) {
     return {
       scoreDisplayMode: Audit.SCORING_MODES.NOT_APPLICABLE,
@@ -54,12 +64,22 @@ async function adaptInsightToAuditProduct(artifacts, context, insightName, creat
     };
   }
 
-  const details = createDetails(insight);
+  const details = createDetails(insight, {
+    parsedTrace,
+    insights,
+  });
   if (!details || (details.type === 'table' && details.headings.length === 0)) {
     return {
       scoreDisplayMode: Audit.SCORING_MODES.NOT_APPLICABLE,
       score: null,
     };
+  }
+
+  if (insight.wastedBytes !== undefined) {
+    if (!details.debugData) {
+      details.debugData = {type: 'debugdata'};
+    }
+    details.debugData.wastedBytes = insight.wastedBytes;
   }
 
   // This hack is to add metric adorners if an insight category links it to a metric,
@@ -71,6 +91,13 @@ async function adaptInsightToAuditProduct(artifacts, context, insightName, creat
     metricSavings = {...metricSavings, CLS: /** @type {any} */ (0)};
   } else if (insight.category === 'LCP' && !metricSavings?.LCP) {
     metricSavings = {...metricSavings, LCP: /** @type {any} */ (0)};
+  }
+
+  // TODO: consider adding a `estimatedSavingsText` to InsightModel, which can capture
+  // the exact i18n string used by RPP; and include the same est. timing savings.
+  let displayValue;
+  if (insight.wastedBytes) {
+    displayValue = str_(i18n.UIStrings.displayValueByteSavings, {wastedBytes: insight.wastedBytes});
   }
 
   let score;
@@ -89,6 +116,7 @@ async function adaptInsightToAuditProduct(artifacts, context, insightName, creat
     score,
     metricSavings,
     warnings: insight.warnings,
+    displayValue,
     details,
   };
 }
