@@ -12,7 +12,16 @@ import {Globals} from './report-globals.js';
 import {Util} from '../../shared/util.js';
 import {createGauge, updateGauge} from './explodey-gauge.js';
 
+const LOCAL_STORAGE_INSIGHTS_KEY = '__lh__insights_audits_toggle_state';
+
+/**
+ * @typedef {('DEFAULT'|'AUDITS'|'INSIGHTS')} InsightsExperimentState
+ */
+
 export class PerformanceCategoryRenderer extends CategoryRenderer {
+  /** @type InsightsExperimentState*/
+  _memoryInsightToggleState = 'DEFAULT';
+
   /**
    * @param {LH.ReportResult.AuditRef} audit
    * @return {!Element}
@@ -135,6 +144,84 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
   }
 
   /**
+   * @param {InsightsExperimentState} newState
+  **/
+  _persistInsightToggleToStorage(newState) {
+    try {
+      window.localStorage.setItem(LOCAL_STORAGE_INSIGHTS_KEY, newState);
+    } finally {
+      this._memoryInsightToggleState = newState;
+    }
+  }
+
+  /**
+   * @returns {InsightsExperimentState}
+  **/
+  _getInsightToggleState() {
+    let state = this._getRawInsightToggleState();
+    if (state === 'DEFAULT') state = 'AUDITS';
+    return state;
+  }
+
+  /**
+   * @returns {InsightsExperimentState}
+  **/
+  _getRawInsightToggleState() {
+    try {
+      const fromStorage = window.localStorage.getItem(LOCAL_STORAGE_INSIGHTS_KEY);
+      if (fromStorage === 'AUDITS' || fromStorage === 'INSIGHTS') {
+        return fromStorage;
+      }
+    } catch {
+      return this._memoryInsightToggleState;
+    }
+    return 'DEFAULT';
+  }
+
+  /**
+   * @param {HTMLButtonElement} button
+  **/
+  _setInsightToggleButtonText(button) {
+    const state = this._getInsightToggleState();
+    button.innerText =
+      state === 'AUDITS' ? Globals.strings.tryInsights : Globals.strings.goBackToAudits;
+  }
+
+  /**
+   * @param {HTMLElement} element
+   */
+  _renderInsightsToggle(element) {
+    // Insights / Audits toggle.
+    const container = this.dom.createChildOf(element, 'div', 'lh-perf-insights-toggle');
+    const textSpan = this.dom.createChildOf(container, 'span', 'lh-perf-toggle-text');
+    const icon = this.dom.createElement('span', 'lh-perf-insights-icon insights-icon-url');
+    textSpan.appendChild(icon);
+    textSpan.appendChild(this.dom.convertMarkdownLinkSnippets(Globals.strings.insightsNotice));
+
+    const buttonClasses = 'lh-button lh-button-insight-toggle';
+    const button = this.dom.createChildOf(container, 'button', buttonClasses);
+    this._setInsightToggleButtonText(button);
+
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      const swappableSection = this.dom.maybeFind('.lh-perf-audits--swappable');
+      if (swappableSection) {
+        this.dom.swapSectionIfPossible(swappableSection);
+      }
+      const currentState = this._getInsightToggleState();
+      const newState = currentState === 'AUDITS' ? 'INSIGHTS' : 'AUDITS';
+      this.dom.fireEventOn('lh-analytics', this.dom.document(), {
+        name: 'toggle_insights',
+        data: {newState},
+      });
+      this._persistInsightToggleToStorage(newState);
+      this._setInsightToggleButtonText(button);
+    });
+
+    container.appendChild(button);
+  }
+
+  /**
    * @param {LH.ReportResult.Category} category
    * @param {Object<string, LH.Result.ReportGroup>} groups
    * @param {{gatherMode: LH.Result.GatherMode}=} options
@@ -201,6 +288,8 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
       filmstripEl && timelineEl.append(filmstripEl);
     }
 
+    this._renderInsightsToggle(element);
+
     const legacyAuditsSection =
       this.renderFilterableSection(category, groups, ['diagnostics'], metricAudits);
     legacyAuditsSection?.classList.add('lh-perf-audits--swappable', 'lh-perf-audits--legacy');
@@ -220,6 +309,23 @@ export class PerformanceCategoryRenderer extends CategoryRenderer {
         this.dom.registerSwappableSections(legacyAuditsSection, experimentalInsightsSection);
       }
     }
+    // Deal with the user loading the report and having toggled to Insights
+    // which is now stored in local storage. Put in a rAF otherwise this code
+    // runs before the DOM is created.
+    if (this._getInsightToggleState() === 'INSIGHTS') {
+      requestAnimationFrame(() => {
+        const swappableSection = this.dom.maybeFind('.lh-perf-audits--swappable');
+        if (swappableSection) {
+          this.dom.swapSectionIfPossible(swappableSection);
+        }
+      });
+    }
+
+    // Log the initial state.
+    this.dom.fireEventOn('lh-analytics', this.dom.document(), {
+      name: 'initial_insights_state',
+      data: {state: this._getRawInsightToggleState()},
+    });
 
     const isNavigationMode = !options || options?.gatherMode === 'navigation';
     if (isNavigationMode && category.score !== null) {
