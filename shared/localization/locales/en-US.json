@@ -1440,7 +1440,7 @@
     "message": "Initial server response time was short"
   },
   "core/audits/third-party-cookies.js | description": {
-    "message": "Chrome is moving towards a new experience that allows users to choose to browse without third-party cookies. [Learn more about third-party cookies](https://developers.google.com/privacy-sandbox/cookies)."
+    "message": "Third-party cookies may be blocked in some contexts. [Learn more about preparing for third-party cookie restrictions](https://privacysandbox.google.com/cookies/prepare/overview)."
   },
   "core/audits/third-party-cookies.js | displayValue": {
     "message": "{itemCount, plural,\n    =1 {1 cookie found}\n    other {# cookies found}\n    }"
@@ -2176,6 +2176,9 @@
   },
   "node_modules/@paulirish/trace_engine/generated/Deprecation.js | CanRequestURLHTTPContainingNewline": {
     "message": "Resource requests whose URLs contained both removed whitespace \\(n|r|t) characters and less-than characters (<) are blocked. Please remove newlines and encode less-than characters from places like element attribute values in order to load these resources."
+  },
+  "node_modules/@paulirish/trace_engine/generated/Deprecation.js | CharsetAutoDetectionISO2022JP": {
+    "message": "Auto-detection of ISO-2022-JP character set is deprecated and it will be disabled in the near future. Please specify character set in the Content Type header or by using a meta tag (https://developer.mozilla.org/en-US/docs/Glossary/Character_encoding)."
   },
   "node_modules/@paulirish/trace_engine/generated/Deprecation.js | ChromeLoadTimesConnectionInfo": {
     "message": "chrome.loadTimes() is deprecated, instead use standardized API: Navigation Timing 2."
@@ -3560,9 +3563,6 @@
   "report/renderer/report-utils.js | dropdownDarkTheme": {
     "message": "Toggle Dark Theme"
   },
-  "report/renderer/report-utils.js | dropdownInsightsToggle": {
-    "message": "Toggle experimental insights"
-  },
   "report/renderer/report-utils.js | dropdownPrintExpanded": {
     "message": "Print Expanded"
   },
@@ -3599,8 +3599,14 @@
   "report/renderer/report-utils.js | footerIssue": {
     "message": "File an issue"
   },
+  "report/renderer/report-utils.js | goBackToAudits": {
+    "message": "Go back to audits"
+  },
   "report/renderer/report-utils.js | hide": {
     "message": "Hide"
+  },
+  "report/renderer/report-utils.js | insightsNotice": {
+    "message": "Later this year, insights will replace performance audits. [Learn more and provide feedback here](https://github.com/GoogleChrome/lighthouse/discussions/16462)."
   },
   "report/renderer/report-utils.js | labDataTitle": {
     "message": "Lab Data"
@@ -3701,6 +3707,9 @@
   "report/renderer/report-utils.js | toplevelWarningsMessage": {
     "message": "There were issues affecting this run of Lighthouse:"
   },
+  "report/renderer/report-utils.js | tryInsights": {
+    "message": "Try insights"
+  },
   "report/renderer/report-utils.js | unattributable": {
     "message": "Unattributable"
   },
@@ -3742,6 +3751,9 @@
   },
   "treemap/app/src/util.js | toggleTableButtonLabel": {
     "message": "Toggle table"
+  },
+  "treemap/app/src/util.js | transferBytesLabel": {
+    "message": "Transfer bytes"
   },
   "treemap/app/src/util.js | unusedBytesLabel": {
     "message": "Unused bytes"
