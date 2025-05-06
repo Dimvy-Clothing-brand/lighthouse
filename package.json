@@ -1,7 +1,7 @@
 {
   "name": "lighthouse",
   "type": "module",
-  "version": "12.5.1",
+  "version": "12.6.0",
   "description": "Automated auditing, performance metrics, and best practices for the web.",
   "main": "./core/index.js",
   "bin": {
@@ -117,6 +117,7 @@
     "@types/eslint": "^8.2.1",
     "@types/estree": "^0.0.50",
     "@types/gh-pages": "^2.0.0",
+    "@types/gtag.js": "0.0.20",
     "@types/google.analytics": "0.0.39",
     "@types/jpeg-js": "^0.3.7",
     "@types/jsdom": "^16.2.13",
@@ -184,7 +185,7 @@
     "webtreemap-cdt": "^3.2.1"
   },
   "dependencies": {
-    "@paulirish/trace_engine": "0.0.51",
+    "@paulirish/trace_engine": "0.0.52",
     "@sentry/node": "^7.0.0",
     "axe-core": "^4.10.3",
     "chrome-launcher": "^1.1.2",
@@ -228,5 +229,6 @@
   "bugs": {
     "url": "https://github.com/GoogleChrome/lighthouse/issues"
   },
-  "homepage": "https://github.com/GoogleChrome/lighthouse#readme"
+  "homepage": "https://github.com/GoogleChrome/lighthouse#readme",
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
