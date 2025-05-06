@@ -1440,7 +1440,7 @@
     "message": "Îńît́îál̂ śêŕv̂ér̂ ŕêśp̂ón̂śê t́îḿê ẃâś ŝh́ôŕt̂"
   },
   "core/audits/third-party-cookies.js | description": {
-    "message": "Ĉh́r̂óm̂é îś m̂óv̂ín̂ǵ t̂óŵár̂d́ŝ á n̂éŵ éx̂ṕêŕîén̂ćê t́ĥát̂ ál̂ĺôẃŝ úŝér̂ś t̂ó ĉh́ôóŝé t̂ó b̂ŕôẃŝé ŵít̂h́ôút̂ t́ĥír̂d́-p̂ár̂t́ŷ ćôók̂íêś. [L̂éâŕn̂ ḿôŕê áb̂óût́ t̂h́îŕd̂-ṕâŕt̂ý ĉóôḱîéŝ](https://developers.google.com/privacy-sandbox/cookies)."
+    "message": "T̂h́îŕd̂-ṕâŕt̂ý ĉóôḱîéŝ ḿâý b̂é b̂ĺôćk̂éd̂ ín̂ śôḿê ćôńt̂éx̂t́ŝ. [Ĺêár̂ń m̂ór̂é âb́ôút̂ ṕr̂ép̂ár̂ín̂ǵ f̂ór̂ t́ĥír̂d́-p̂ár̂t́ŷ ćôók̂íê ŕêśt̂ŕîćt̂íôńŝ](https://privacysandbox.google.com/cookies/prepare/overview)."
   },
   "core/audits/third-party-cookies.js | displayValue": {
     "message": "{itemCount, plural,\n    =1 {1 ĉóôḱîé f̂óûńd̂}\n    other {# ćôók̂íêś f̂óûńd̂}\n    }"
@@ -2176,6 +2176,9 @@
   },
   "node_modules/@paulirish/trace_engine/generated/Deprecation.js | CanRequestURLHTTPContainingNewline": {
     "message": "R̂éŝóûŕĉé r̂éq̂úêśt̂ś ŵh́ôśê ÚR̂Ĺŝ ćôńt̂áîńêd́ b̂ót̂h́ r̂ém̂óv̂éd̂ ẃĥít̂éŝṕâćê \\(n|r|t) ćĥár̂áĉt́êŕŝ án̂d́ l̂éŝś-t̂h́âń ĉh́âŕâćt̂ér̂ś (<) âŕê b́l̂óĉḱêd́. P̂ĺêáŝé r̂ém̂óv̂é n̂éŵĺîńêś âńd̂ én̂ćôd́ê ĺêśŝ-t́ĥán̂ ćĥár̂áĉt́êŕŝ f́r̂óm̂ ṕl̂áĉéŝ ĺîḱê él̂ém̂én̂t́ ât́t̂ŕîb́ût́ê v́âĺûéŝ ín̂ ór̂d́êŕ t̂ó l̂óâd́ t̂h́êśê ŕêśôúr̂ćêś."
+  },
+  "node_modules/@paulirish/trace_engine/generated/Deprecation.js | CharsetAutoDetectionISO2022JP": {
+    "message": "Âút̂ó-d̂ét̂éĉt́îón̂ óf̂ ÍŜÓ-2022-ĴṔ ĉh́âŕâćt̂ér̂ śêt́ îś d̂ép̂ŕêćât́êd́ âńd̂ ít̂ ẃîĺl̂ b́ê d́îśâb́l̂éd̂ ín̂ t́ĥé n̂éâŕ f̂út̂úr̂é. P̂ĺêáŝé ŝṕêćîf́ŷ ćĥár̂áĉt́êŕ ŝét̂ ín̂ t́ĥé Ĉón̂t́êńt̂ T́ŷṕê h́êád̂ér̂ ór̂ b́ŷ úŝín̂ǵ â ḿêt́â t́âǵ (ĥt́t̂ṕŝ://d́êv́êĺôṕêŕ.m̂óẑíl̂ĺâ.ór̂ǵ/êń-ÛŚ/d̂óĉś/Ĝĺôśŝár̂ý/Ĉh́âŕâćt̂ér̂_én̂ćôd́îńĝ)."
   },
   "node_modules/@paulirish/trace_engine/generated/Deprecation.js | ChromeLoadTimesConnectionInfo": {
     "message": "chrome.loadTimes() îś d̂ép̂ŕêćât́êd́, îńŝt́êád̂ úŝé ŝt́âńd̂ár̂d́îźêd́ ÂṔÎ: Ńâv́îǵât́îón̂ T́îḿîńĝ 2."
@@ -3560,9 +3563,6 @@
   "report/renderer/report-utils.js | dropdownDarkTheme": {
     "message": "T̂óĝǵl̂é D̂ár̂ḱ T̂h́êḿê"
   },
-  "report/renderer/report-utils.js | dropdownInsightsToggle": {
-    "message": "T̂óĝǵl̂é êx́p̂ér̂ím̂én̂t́âĺ îńŝíĝh́t̂ś"
-  },
   "report/renderer/report-utils.js | dropdownPrintExpanded": {
     "message": "P̂ŕîńt̂ Éx̂ṕâńd̂éd̂"
   },
@@ -3599,8 +3599,14 @@
   "report/renderer/report-utils.js | footerIssue": {
     "message": "F̂íl̂é âń îśŝúê"
   },
+  "report/renderer/report-utils.js | goBackToAudits": {
+    "message": "Ĝó b̂áĉḱ t̂ó âúd̂ít̂ś"
+  },
   "report/renderer/report-utils.js | hide": {
     "message": "Ĥíd̂é"
+  },
+  "report/renderer/report-utils.js | insightsNotice": {
+    "message": "L̂át̂ér̂ t́ĥíŝ ýêár̂, ín̂śîǵĥt́ŝ ẃîĺl̂ ŕêṕl̂áĉé p̂ér̂f́ôŕm̂án̂ćê áûd́ît́ŝ. [Ĺêár̂ń m̂ór̂é âńd̂ ṕr̂óv̂íd̂é f̂éêd́b̂áĉḱ ĥér̂é](https://github.com/GoogleChrome/lighthouse/discussions/16462)."
   },
   "report/renderer/report-utils.js | labDataTitle": {
     "message": "L̂áb̂ D́ât́â"
@@ -3701,6 +3707,9 @@
   "report/renderer/report-utils.js | toplevelWarningsMessage": {
     "message": "T̂h́êŕê ẃêŕê íŝśûéŝ áf̂f́êćt̂ín̂ǵ t̂h́îś r̂ún̂ óf̂ Ĺîǵĥt́ĥóûśê:"
   },
+  "report/renderer/report-utils.js | tryInsights": {
+    "message": "T̂ŕŷ ín̂śîǵĥt́ŝ"
+  },
   "report/renderer/report-utils.js | unattributable": {
     "message": "Ûńât́t̂ŕîb́ût́âb́l̂é"
   },
@@ -3742,6 +3751,9 @@
   },
   "treemap/app/src/util.js | toggleTableButtonLabel": {
     "message": "T̂óĝǵl̂é t̂áb̂ĺê"
+  },
+  "treemap/app/src/util.js | transferBytesLabel": {
+    "message": "T̂ŕâńŝf́êŕ b̂ýt̂éŝ"
   },
   "treemap/app/src/util.js | unusedBytesLabel": {
     "message": "Ûńûśêd́ b̂ýt̂éŝ"
