@@ -41,6 +41,7 @@ Array [
   "cookieIssueDetails",
   "corsIssueDetails",
   "deprecationIssueDetails",
+  "elementAccessibilityIssueDetails",
   "federatedAuthRequestIssueDetails",
   "federatedAuthUserInfoRequestIssueDetails",
   "genericIssueDetails",
@@ -51,11 +52,11 @@ Array [
   "partitioningBlobURLIssueDetails",
   "propertyRuleIssueDetails",
   "quirksModeIssueDetails",
-  "selectElementAccessibilityIssueDetails",
   "sharedArrayBufferIssueDetails",
   "sharedDictionaryIssueDetails",
   "sriMessageSignatureIssueDetails",
   "stylesheetLoadingIssueDetails",
+  "userReidentificationIssueDetails",
 ]
 `);
   });
